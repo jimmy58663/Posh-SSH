@@ -27,7 +27,7 @@ namespace SSH
             var index = 0;
 
             // Retrieve existing sessions from the global variable.
-            var sessionvar = pssession.PSVariable.GetValue("Global:SshSessions") as List<SshSession>;
+            var sessionvar = pssession.PSVariable.GetValue("SshSessions") as List<SshSession>;
 
             // If sessions exist we set the proper index number for them.
             if (sessionvar != null && sessionvar.Count > 0)
@@ -46,7 +46,7 @@ namespace SSH
             sshSessions.Add(obj);
 
             // Set the Global Variable for the sessions.
-            pssession.PSVariable.Set((new PSVariable("Global:SshSessions", sshSessions, ScopedItemOptions.AllScope)));
+            pssession.PSVariable.Set((new PSVariable("SshSessions", sshSessions, ScopedItemOptions.AllScope)));
 
             return obj;
         }
@@ -59,7 +59,7 @@ namespace SSH
             var index = 0;
 
             // Retrive existing sessions from the globla variable.
-            var sessionvar = pssession.PSVariable.GetValue("Global:SFTPSessions") as List<SftpSession>;
+            var sessionvar = pssession.PSVariable.GetValue("SFTPSessions") as List<SftpSession>;
 
             // If sessions exist we set the proper index number for them.
             if (sessionvar != null && sessionvar.Count > 0)
@@ -78,7 +78,7 @@ namespace SSH
             sftpSessions.Add(obj);
 
             // Set the Global Variable for the sessions.
-            pssession.PSVariable.Set((new PSVariable("Global:SFTPSessions", sftpSessions, ScopedItemOptions.AllScope)));
+            pssession.PSVariable.Set((new PSVariable("SFTPSessions", sftpSessions, ScopedItemOptions.AllScope)));
             return obj;
         }
 

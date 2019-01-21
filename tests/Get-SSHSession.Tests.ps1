@@ -12,13 +12,13 @@ Describe "Get-SSHSession" {
     }
 
     Context "ReturnData" { 
-        $Global:SshSessions = New-Object System.Collections.ArrayList
+        $SshSessions = New-Object System.Collections.ArrayList
         $session = New-Object SSH.SshSession
         $session.host = "dummy"
         $session.SessionID = 0
-        $Global:SshSessions.Add($session)
+        $SshSessions.Add($session)
     
-        $Global:session = New-Object SSH.SshSession
+        $session = New-Object SSH.SshSession
         $session.host = "dummy"
         $session.SessionID = 1
         $SshSessions.Add($session)
@@ -46,4 +46,4 @@ Describe "Get-SSHSession" {
 }
 
 Remove-Module Posh-SSH -ErrorAction SilentlyContinue
-Remove-Variable sshsessions -Scope Global -ErrorAction SilentlyContinue
+Remove-Variable sshsessions -ErrorAction SilentlyContinue

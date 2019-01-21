@@ -1,13 +1,13 @@
 # Set up of Session variables.
 ##############################################################################################
-if (!(Test-Path variable:Global:SshSessions ))
+if (!(Test-Path variable:SshSessions ))
 {
-    $global:SshSessions = New-Object System.Collections.ArrayList
+    $SshSessions = New-Object System.Collections.ArrayList
 }
 
-if (!(Test-Path variable:Global:SFTPSessions ))
+if (!(Test-Path variable:SFTPSessions ))
 {
-    $global:SFTPSessions = New-Object System.Collections.ArrayList
+    $SFTPSessions = New-Object System.Collections.ArrayList
 }
 
 # SSH Functions
@@ -119,7 +119,7 @@ function Remove-SSHSession
                 $sessions2remove = @()
                  foreach($i in $SessionId)
                 {
-                    foreach($session in $Global:SshSessions)
+                    foreach($session in $SshSessions)
                     {
                         if ($session.SessionId -eq $i)
                         {
@@ -136,7 +136,7 @@ function Remove-SSHSession
                         $badsession.session.Disconnect()
                      }
                      $badsession.session.Dispose()
-                     $global:SshSessions.Remove($badsession)
+                     $SshSessions.Remove($badsession)
                      Write-Verbose "Session $($badsession.SessionId) Removed"
                 }
             }
@@ -146,7 +146,7 @@ function Remove-SSHSession
                 $sessions2remove = @()
                  foreach($i in $SSHSession)
                 {
-                    foreach($ssh in $Global:SshSessions)
+                    foreach($ssh in $SshSessions)
                     {
                         if ($ssh -eq $i)
                         {
@@ -163,7 +163,7 @@ function Remove-SSHSession
                         $badsession.session.Disconnect()
                      }
                      $badsession.session.Dispose()
-                     $Global:SshSessions.Remove($badsession)
+                     $SshSessions.Remove($badsession)
                      Write-Verbose "Session $($badsession.SessionId) Removed"
                 }
             }
@@ -226,7 +226,7 @@ function Invoke-SSHCommand
 
             'Index'
             {
-                foreach($session in $Global:SshSessions)
+                foreach($session in $SshSessions)
                 {
                     if ($SessionId -contains $session.SessionId)
                     {
@@ -471,7 +471,7 @@ function Invoke-SSHCommandStream
 
             'Index'
             {
-                foreach($session in $Global:SshSessions)
+                foreach($session in $SshSessions)
                 {
                     if ($SessionId -contains $session.SessionId)
                     {
@@ -928,7 +928,7 @@ function Get-SFTPSession
         {
             foreach($i in $SessionId)
             {
-                foreach($session in $global:SFTPSessions)
+                foreach($session in $SFTPSessions)
                 {
                     if ($session.SessionId -eq $i)
                     {
@@ -942,7 +942,7 @@ function Get-SFTPSession
             # Can not reference SFTPSessions directly so as to be able
             # to remove the sessions when Remove-Sftpession is used
             $return_sessions = @()
-            foreach($s in $Global:SFTPSessions){$return_sessions += $s}
+            foreach($s in $SFTPSessions){$return_sessions += $s}
             $return_sessions
         }
     }
@@ -981,7 +981,7 @@ function Remove-SFTPSession
                  foreach($i in $SessionId)
                 {
                     Write-Verbose $i
-                    foreach($session in $Global:SFTPSessions)
+                    foreach($session in $SFTPSessions)
                     {
                         if ($session.SessionId -eq $i)
                         {
@@ -998,7 +998,7 @@ function Remove-SFTPSession
                         $badsession.session.Disconnect()
                      }
                      $badsession.session.Dispose()
-                     $Global:SFTPSessions.Remove($badsession)
+                     $SFTPSessions.Remove($badsession)
                      Write-Verbose "Session $($badsession.SessionId) Removed"
                 }
             }
@@ -1008,7 +1008,7 @@ function Remove-SFTPSession
                 $sessions2remove = @()
                  foreach($i in $SFTPSession)
                 {
-                    foreach($ssh in $global:SFTPSessions)
+                    foreach($ssh in $SFTPSessions)
                     {
                         if ($ssh -eq $i)
                         {
@@ -1025,7 +1025,7 @@ function Remove-SFTPSession
                         $badsession.session.Disconnect()
                      }
                      $badsession.session.Dispose()
-                     $Global:SFTPSessions.Remove($badsession)
+                     $SFTPSessions.Remove($badsession)
                      Write-Verbose "Session $($badsession.SessionId) Removed"
                 }
             }
@@ -1096,7 +1096,7 @@ function Get-SFTPChildItem
 
             'Index'
             {
-                foreach($session in $Global:SFTPSessions)
+                foreach($session in $SFTPSessions)
                 {
                     if ($SessionId -contains $session.SessionId)
                     {
@@ -1177,7 +1177,7 @@ function Test-SFTPPath
 
             'Index'
             {
-                foreach($session in $Global:SFTPSessions)
+                foreach($session in $SFTPSessions)
                 {
                     if ($SessionId -contains $session.SessionId)
                     {
@@ -1243,7 +1243,7 @@ function Remove-SFTPItem
 
             'Index'
             {
-                foreach($session in $Global:SFTPSessions)
+                foreach($session in $SFTPSessions)
                 {
                     if ($SessionId -contains $session.SessionId)
                     {
@@ -1337,7 +1337,7 @@ function Move-SFTPItem
 
             'Index'
             {
-                foreach($session in $Global:SFTPSessions)
+                foreach($session in $SFTPSessions)
                 {
                     if ($SessionId -contains $session.SessionId)
                     {
@@ -1410,7 +1410,7 @@ function Set-SFTPLocation
 
             'Index'
             {
-                foreach($session in $Global:SFTPSessions)
+                foreach($session in $SFTPSessions)
                 {
                     if ($SessionId -contains $session.SessionId)
                     {
@@ -1476,7 +1476,7 @@ function Get-SFTPLocation
 
             'Index'
             {
-                foreach($session in $Global:SFTPSessions)
+                foreach($session in $SFTPSessions)
                 {
                     if ($SessionId -contains $session.SessionId)
                     {
@@ -1544,7 +1544,7 @@ function Rename-SFTPFile
 
             'Index'
             {
-                foreach($session in $Global:SFTPSessions)
+                foreach($session in $SFTPSessions)
                 {
                     if ($SessionId -contains $session.SessionId)
                     {
@@ -1619,7 +1619,7 @@ function Get-SFTPPathAttribute
 
             'Index'
             {
-                foreach($session in $Global:SFTPSessions)
+                foreach($session in $SFTPSessions)
                 {
                     if ($SessionId -contains $session.SessionId)
                     {
@@ -1757,7 +1757,7 @@ function Set-SFTPPathAttribute
 
             'Index'
             {
-                foreach($session in $Global:SFTPSessions)
+                foreach($session in $SFTPSessions)
                 {
                     if ($SessionId -contains $session.SessionId)
                     {
@@ -1904,7 +1904,7 @@ function New-SFTPSymlink
 
             'Index'
             {
-                foreach($session in $Global:SFTPSessions)
+                foreach($session in $SFTPSessions)
                 {
                     if ($SessionId -contains $session.SessionId)
                     {
@@ -2009,7 +2009,7 @@ function Get-SFTPContent
 
             'Index'
             {
-                foreach($session in $Global:SFTPSessions)
+                foreach($session in $SFTPSessions)
                 {
                     if ($SessionId -contains $session.SessionId)
                     {
@@ -2154,7 +2154,7 @@ function Set-SFTPContent
 
             'Index'
             {
-                foreach($session in $Global:SFTPSessions)
+                foreach($session in $SFTPSessions)
                 {
                     if ($SessionId -contains $session.SessionId)
                     {
@@ -2427,7 +2427,7 @@ function New-SFTPItem
 
             'Index'
             {
-                foreach($session in $Global:SFTPSessions)
+                foreach($session in $SFTPSessions)
                 {
                     if ($SessionId -contains $session.SessionId)
                     {
@@ -2699,7 +2699,7 @@ function New-SSHRemotePortForward
         if ($PSCmdlet.ParameterSetName -eq 'Index')
         {
             Write-Verbose "Finding session with Index $Index"
-            foreach($session in $Global:SshSessions)
+            foreach($session in $SshSessions)
             {
                 Write-Verbose $session.index
                 if ($session.index -eq $Index)
@@ -2715,7 +2715,7 @@ function New-SSHRemotePortForward
         }
         elseif ($PSCmdlet.ParameterSetName -eq 'Session')
         {
-            if ($SSHSession -in $Global:SshSessions)
+            if ($SSHSession -in $SshSessions)
             {
                 # Add the forward port object to the session
                 Write-Verbose "Adding Forward Port Configuration to session $($SSHSession.index)"

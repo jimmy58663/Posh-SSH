@@ -1,4 +1,5 @@
-﻿using Renci.SshNet;
+﻿using Microsoft.Win32;
+using Renci.SshNet;
 using Renci.SshNet.Common;
 using System;
 using System.Collections.Generic;
@@ -202,6 +203,18 @@ namespace SSH
             get { return _errorOnUntrusted; }
             set { _errorOnUntrusted = value; }
         }
+
+        // Use only FIPS algorithms.
+        private bool _useFipsMode;
+        [Parameter(Mandatory = false,
+            ValueFromPipelineByPropertyName = true,
+            HelpMessage = "Sets only FIPS algorithms for use.")]
+        public SwitchParameter UseFipsMode
+        {
+            get { return _useFipsMode; }
+            set { _useFipsMode = value; }
+        }
+
         // Variable to hold the host/fingerprint information
         private Dictionary<string, string> _sshHostKeys;
 
@@ -214,6 +227,20 @@ namespace SSH
                 base.BeginProcessing();
                 var keymng = new TrustedKeyMng();
                 _sshHostKeys = keymng.GetKeys();
+            }
+
+            // No need if FIPS is manually set
+            if (!_useFipsMode)
+            {
+                // Determine if FIPS is enabled
+                if ((int?)Registry.GetValue(@"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa\FipsAlgorithmPolicy", "Enabled", -1) == 1)
+                {
+                    _useFipsMode = true;
+                }
+                else if ((int?)Registry.GetValue(@"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa", "FIPSAlgorithmPolicy", -1) == 1)
+                {
+                    _useFipsMode = true;
+                }
             }
         }
 
@@ -275,6 +302,12 @@ namespace SSH
 
                     default:
                         break;
+                }
+
+                //Remove algorithms that are not FIPS compliant if flag is set
+                if (_useFipsMode)
+                {
+                    connectInfo.UseFipsMode();
                 }
 
                 //Ceate instance of SSH Client with connection info
