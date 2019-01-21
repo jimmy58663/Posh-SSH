@@ -1,13 +1,12 @@
 ﻿Import-Module .\Posh-SSH.psd1
 
 Describe "Remove-SSHSession" {
-    Context "Parameters" { 
-                                 
+    Context "Parameters" {
+
     }
 
-    Context "Action" { 
-        
-        $SshSessions = New-Object System.Collections.ArrayList
+    Context "Action" {
+
         $session = New-Object SSH.SshSession
         $session.host = "dummy"
         $session.SessionId = 0
@@ -40,9 +39,9 @@ Describe "Remove-SSHSession" {
             $sessions = Get-SSHSession
             $sessions | Should be $null
         }
-                             
+
     }
 }
 
-Remove-Module Posh-SSH -ErrorAction SilentlyContinue
 Remove-Variable sshsessions -ErrorAction SilentlyContinue
+Remove-Module Posh-SSH -ErrorAction SilentlyContinue

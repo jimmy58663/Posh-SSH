@@ -1,7 +1,7 @@
 ﻿Import-Module .\Posh-SSH.psd1
 
 Describe "Get-SSHSession" {
-    Context "Parameters" { 
+    Context "Parameters" {
         It "should not throw if no parameter is given" {
             { Get-SSHSession } | Should not throw
         }
@@ -11,20 +11,20 @@ Describe "Get-SSHSession" {
         }
     }
 
-    Context "ReturnData" { 
+    Context "ReturnData" {
         $session = New-Object SSH.SshSession
         $session.host = "dummy"
         $session.SessionID = 0
         $SshSessions.Add($session)
-    
+
         $session = New-Object SSH.SshSession
         $session.host = "dummy"
         $session.SessionID = 1
         $SshSessions.Add($session)
 
         $Allsessions = Get-SSHSession
-    
-        It "Should return data with no parameters" {        
+
+        It "Should return data with no parameters" {
             { $Allsessions } | should not be null
         }
 
@@ -37,7 +37,7 @@ Describe "Get-SSHSession" {
         It "Should return the object of the specified index" {
             $OneSession.SessionId | should be 1
         }
-        
+
         It "Should return an object of type sshSession" {
             { $OneSession -is [SSH.SshSession] } | should be $true
         }
