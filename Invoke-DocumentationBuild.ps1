@@ -1,16 +1,18 @@
+[cmdletbinding()]
+Param()
 if (Get-Module -ListAvailable -Name platyPS) {
-    Write-Host "platyPS is installed." -ForegroundColor Green
+    Write-Verbose "platyPS is installed."
     Import-Module platyPS
-} 
+}
 else {
-    Write-Host "Module platyPS is not installed. Can not generate docs" -ForegroundColor Red
+    Write-Error "Module platyPS is not installed. Can not generate docs"
     exit
 }
 
-Write-Host "Turning markdown documents to External Help files" -ForegroundColor green
+Write-Verbose "Turning markdown documents to External Help files"
 New-ExternalHelp .\docs -OutputPath .\Release\en-US -Force -verbose
-Write-Host "Updates markdown files" -ForegroundColor Green
-Write-Host "Importing release version of module." -ForegroundColor Green
+Write-Verbose "Updates markdown files"
+Write-Verbose "Importing release version of module."
 Import-Module .\Release\Posh-SSH.psd1 -verbose -Force
-Write-Host "Updating Markdown" -ForegroundColor Green
+Write-Verbose "Updating Markdown"
 New-MarkdownHelp -Module Posh-ssh -Force -OutputFolder .\docs

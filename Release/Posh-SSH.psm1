@@ -248,7 +248,7 @@ function Invoke-SSHCommand
                 $Script:AsyncProcessing.GetEnumerator() |
                 ForEach-Object {
                     $JobKey = $_.Key
-                    #Write-Verbose $JobKey -Verbose
+                    Write-Verbose $JobKey -Verbose
                     $_.Value
                 } |
                 ForEach-Object {
