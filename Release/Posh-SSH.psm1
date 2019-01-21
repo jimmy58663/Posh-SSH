@@ -194,8 +194,7 @@ function Invoke-SSHCommand
         [SSH.SSHSession[]]
         $SSHSession,
 
-        [Parameter(Mandatory=$true,
-                   ParameterSetName = 'Index',
+        [Parameter(ParameterSetName = 'Index',
                    Position=0)]
         [Alias('Index')]
         [int32[]]
@@ -2677,7 +2676,7 @@ function New-SSHRemotePortForward
 {
     [CmdletBinding(DefaultParameterSetName="Index")]
     param(
-    [Parameter(Mandatory=$true)]
+    [Parameter()]
     [String]$LocalAdress = '127.0.0.1',
 
     [Parameter(Mandatory=$true)]
@@ -2695,8 +2694,7 @@ function New-SSHRemotePortForward
     [Alias("Session")]
     [SSH.SSHSession]$SSHSession,
 
-    [Parameter(Mandatory=$true,
-        ParameterSetName = "Index",
+    [Parameter(ParameterSetName = "Index",
         ValueFromPipeline=$true)]
     [Int32]$Index = $null
     )
@@ -2767,8 +2765,7 @@ function New-SSHDynamicPortForward
 {
     [CmdletBinding(DefaultParameterSetName="Index")]
     param(
-        [Parameter(Mandatory=$true,
-            Position=1)]
+        [Parameter(Position=1)]
         [String]
         $BoundHost = 'localhost',
 
