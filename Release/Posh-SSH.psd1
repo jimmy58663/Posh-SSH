@@ -118,7 +118,7 @@ CmdletsToExport = 'Get-SCPFile',
                   'Set-SFTPItem'
 
 # Variables to export from this module
-VariablesToExport = @('SSHSessions','SFTPSessions')
+VariablesToExport = @('SshSessions','SFTPSessions')
 
 # Aliases to export from this module
 AliasesToExport = '*'

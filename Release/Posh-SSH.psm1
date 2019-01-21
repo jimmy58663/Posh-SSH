@@ -1,13 +1,15 @@
 # Set up of Session variables.
 ##############################################################################################
-if (!(Test-Path variable:SshSessions ))
+if (!(Test-Path variable:\SshSessions ))
 {
     $SshSessions = New-Object System.Collections.ArrayList
+    Export-ModuleMember -Variable 'SshSessions'
 }
 
-if (!(Test-Path variable:SFTPSessions ))
+if (!(Test-Path variable:\SFTPSessions ))
 {
     $SFTPSessions = New-Object System.Collections.ArrayList
+    Export-ModuleMember -Variable 'SFTPSessions'
 }
 
 # SSH Functions
@@ -87,7 +89,7 @@ function Get-SSHSession
     }
     End{}
 }
-
+Export-ModuleMember -Function 'Get-SSHSession'
 
 # .ExternalHelp Posh-SSH.psm1-Help.xml
 function Remove-SSHSession
@@ -172,7 +174,7 @@ function Remove-SSHSession
         End{}
 
 }
-
+Export-ModuleMember -Function 'Remove-SSHSession'
 
 # .ExternalHelp Posh-SSH.psm1-Help.xml
 function Invoke-SSHCommand
@@ -370,11 +372,11 @@ function Invoke-SSHCommand
         }
     }
 }
-
+Export-ModuleMember -Function 'Invoke-SSHCommand'
 
 # .ExternalHelp Posh-SSH.psm1-Help.xml
- function Get-PoshSSHModVersion
- {
+function Get-PoshSSHModVersion
+{
     [CmdletBinding()]
     [OutputType([pscustomobject])]
     Param()
@@ -414,6 +416,7 @@ function Invoke-SSHCommand
      }
      End{}
  }
+Export-ModuleMember -Function 'Get-PoshSSHModVersion'
 
  # .ExternalHelp Posh-SSH.psm1-Help.xml
 function Invoke-SSHCommandStream
@@ -566,7 +569,7 @@ function Invoke-SSHCommandStream
     }
     End{}
 }
-
+Export-ModuleMember -Function 'Invoke-SSHCommandStream'
 
 # .ExternalHelp Posh-SSH.psm1-Help.xml
 function New-SSHShellStream
@@ -664,6 +667,7 @@ function New-SSHShellStream
     {
     }
 }
+Export-ModuleMember -Function 'New-SSHShellStream'
 
 # .ExternalHelp Posh-SSH.psm1-Help.xml
 function Invoke-SSHStreamExpectAction
@@ -753,6 +757,7 @@ function Invoke-SSHStreamExpectAction
     {
     }
 }
+Export-ModuleMember -Function 'Invoke-SSHStreamExpectAction'
 
 # .ExternalHelp Posh-SSH.psm1-Help.xml
 function Invoke-SSHStreamExpectSecureAction
@@ -845,9 +850,11 @@ function Invoke-SSHStreamExpectSecureAction
     {
     }
 }
+Export-ModuleMember -Function 'Invoke-SSHStreamExpectSecureAction'
 
 # .ExternalHelp Posh-SSH.psm1-Help.xml
-function Invoke-SSHStreamShellCommand {
+function Invoke-SSHStreamShellCommand
+{
     [CmdletBinding()]
     [Alias()]
     [OutputType([int])]
@@ -905,6 +912,7 @@ function Invoke-SSHStreamShellCommand {
     }
     End{}
 }
+Export-ModuleMember -Function 'Invoke-SSHStreamShellCommand'
 
 ########################################################################################
 # SFTP Functions
@@ -948,7 +956,7 @@ function Get-SFTPSession
     }
     End{}
 }
-
+Export-ModuleMember -Function 'Get-SFTPSession'
 
 # .ExternalHelp Posh-SSH.psm1-Help.xml
 function Remove-SFTPSession
@@ -1034,7 +1042,7 @@ function Remove-SFTPSession
         End{}
 
 }
-
+Export-ModuleMember -Function 'Remove-SFTPSession'
 
 # .ExternalHelp Posh-SSH.psm1-Help.xml
 function Get-SFTPChildItem
@@ -1135,7 +1143,7 @@ function Get-SFTPChildItem
      }
      End{}
 }
-
+Export-ModuleMember -Function 'Get-SFTPChildItem'
 
 # .ExternalHelp Posh-SSH.psm1-Help.xml
 function Test-SFTPPath
@@ -1197,6 +1205,7 @@ function Test-SFTPPath
      }
      End{}
 }
+Export-ModuleMember -Function 'Test-SFTPPath'
 
 # .ExternalHelp Posh-SSH.psm1-Help.xml
 function Remove-SFTPItem
@@ -1289,6 +1298,7 @@ function Remove-SFTPItem
      }
      End{}
 }
+Export-ModuleMember -Function 'Remove-SFTPItem'
 
 # .ExternalHelp Posh-SSH.psm1-Help.xml
 function Move-SFTPItem
@@ -1368,7 +1378,7 @@ function Move-SFTPItem
      }
      End{}
 }
-
+Export-ModuleMember -Function 'Move-SFTPItem'
 
 # .ExternalHelp Posh-SSH.psm1-Help.xml
 function Set-SFTPLocation
@@ -1440,7 +1450,7 @@ function Set-SFTPLocation
      }
      End{}
 }
-
+Export-ModuleMember -Function 'Set-SFTPLocation'
 
 # .ExternalHelp Posh-SSH.psm1-Help.xml
 function Get-SFTPLocation
@@ -1497,6 +1507,7 @@ function Get-SFTPLocation
      }
     End{}
 }
+Export-ModuleMember -Function 'Get-SFTPLocation'
 
 # .ExternalHelp Posh-SSH.psm1-Help.xml
 function Rename-SFTPFile
@@ -1575,7 +1586,7 @@ function Rename-SFTPFile
      }
     End{}
 }
-
+Export-ModuleMember -Function 'Rename-SFTPFile'
 
 # .ExternalHelp Posh-SSH.psm1-Help.xml
 function Get-SFTPPathAttribute
@@ -1648,7 +1659,7 @@ function Get-SFTPPathAttribute
     {
     }
 }
-
+Export-ModuleMember -Function 'Get-SFTPPathAttribute'
 
 # .ExternalHelp Posh-SSH.psm1-Help.xml
 function Set-SFTPPathAttribute
@@ -1856,6 +1867,7 @@ function Set-SFTPPathAttribute
     {
     }
 }
+Export-ModuleMember -Function 'Set-SFTPPathAttribute'
 
 # .ExternalHelp Posh-SSH.psm1-Help.xml
 function New-SFTPSymlink
@@ -1952,7 +1964,7 @@ function New-SFTPSymlink
     {
     }
 }
-
+Export-ModuleMember -Function 'New-SFTPSymLink'
 
 # .ExternalHelp Posh-SSH.psm1-Help.xml
 function Get-SFTPContent
@@ -2094,7 +2106,7 @@ function Get-SFTPContent
     {
     }
 }
-
+Export-ModuleMember -Function 'Get-SFTPContent'
 
 # .ExternalHelp Posh-SSH.psm1-Help.xml
 function Set-SFTPContent
@@ -2252,7 +2264,7 @@ function Set-SFTPContent
     {
     }
 }
-
+Export-ModuleMember -Function 'Set-SFTPContent'
 
 # .ExternalHelp Posh-SSH.psm1-Help.xml
 function New-SFTPFileStream
@@ -2375,7 +2387,7 @@ function New-SFTPFileStream
     {
     }
 }
-
+Export-ModuleMember -Function 'New-SFTPFileStream'
 
 # .ExternalHelp Posh-SSH.psm1-Help.xml
 function New-SFTPItem
@@ -2511,7 +2523,7 @@ function New-SFTPItem
     {
     }
 }
-
+Export-ModuleMember -Function 'New-SFTPItem'
 
 
 
@@ -2659,7 +2671,7 @@ function New-SSHLocalPortForward
 
 
 }
-
+Export-ModuleMember -Function 'New-SSHLocalPortForward'
 
 function New-SSHRemotePortForward
 {
@@ -2733,6 +2745,7 @@ function New-SSHRemotePortForward
     }
     End{}
 }
+Export-ModuleMember -Function 'New-SSHRemotePortForward'
 
 <#
 .Synopsis
@@ -2835,7 +2848,7 @@ function New-SSHDynamicPortForward
     }
     End{}
 }
-
+Export-ModuleMember -Function 'New-SSHDynamicPortForward'
 
 <#
 .Synopsis
@@ -2909,7 +2922,7 @@ function Get-SSHPortForward
     }
     End{}
 }
-
+Export-ModuleMember -Function 'Get-SSHPortForward'
 
 <#
 .Synopsis
@@ -3010,8 +3023,8 @@ function Stop-SSHPortForward
         }
     }
     End{}
-}#>
-
+}
+Export-ModuleMember -Function 'Stop-SSHPortForward'
 
 <#
 .Synopsis
@@ -3114,10 +3127,11 @@ function Start-SSHPortForward
     }
     End{}
 }
+Export-ModuleMember -Function 'Start-SSHPortForward'
 
 # .ExternalHelp Posh-SSH.psm1-Help.xml
- function Get-SSHTrustedHost
- {
+function Get-SSHTrustedHost
+{
      [CmdletBinding()]
      [OutputType([int])]
      Param()
@@ -3150,11 +3164,11 @@ function Start-SSHPortForward
         $TrustedHosts
      }
  }
-
+Export-ModuleMember -Function 'Get-SSHTrustedHost'
 
 # .ExternalHelp Posh-SSH.psm1-Help.xml
- function New-SSHTrustedHost
- {
+function New-SSHTrustedHost
+{
     [CmdletBinding()]
      Param
      (
@@ -3196,10 +3210,11 @@ function Start-SSHPortForward
      {
      }
  }
+Export-ModuleMember -Function 'New-SSHTrustedHost'
 
 # .ExternalHelp Posh-SSH.psm1-Help.xml
- function Remove-SSHTrustedHost
- {
+function Remove-SSHTrustedHost
+{
     [CmdletBinding()]
      Param
      (
@@ -3239,3 +3254,4 @@ function Start-SSHPortForward
      }
      End{}
  }
+Export-ModuleMember -Function 'Remove-SSHTrustedHost'

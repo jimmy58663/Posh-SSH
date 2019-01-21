@@ -12,7 +12,6 @@ Describe "Get-SSHSession" {
     }
 
     Context "ReturnData" { 
-        $SshSessions = New-Object System.Collections.ArrayList
         $session = New-Object SSH.SshSession
         $session.host = "dummy"
         $session.SessionID = 0
@@ -45,5 +44,5 @@ Describe "Get-SSHSession" {
     }
 }
 
-Remove-Module Posh-SSH -ErrorAction SilentlyContinue
 Remove-Variable sshsessions -ErrorAction SilentlyContinue
+Remove-Module Posh-SSH -ErrorAction SilentlyContinue
