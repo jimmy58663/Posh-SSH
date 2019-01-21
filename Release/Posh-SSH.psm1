@@ -399,7 +399,7 @@ function Get-PoshSSHModVersion
            Write-Warning 'Could not retrieve the current version.'
        }
 
-       if ( $installed -eq $null )
+       if ($null -eq $installed)
        {
            Write-Error 'Unable to locate Posh-SSH.'
        }
@@ -740,7 +740,7 @@ function Invoke-SSHStreamExpectAction
                 $found = $ShellStream.Expect($ExpectRegex, (New-TimeSpan -Seconds $TimeOut))}
         }
 
-        if ($found -ne $null)
+        if ($null -ne $found)
         {
             Write-Verbose -Message "Executing action: $($Action)."
             $ShellStream.WriteLine($Action)
@@ -833,7 +833,7 @@ function Invoke-SSHStreamExpectSecureAction
              }
         }
 
-        if ($found -ne $null)
+        if ($null -ne $found)
         {
             Write-Verbose -Message "Executing action."
             $ShellStream.WriteLine([Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($SecureAction)))
@@ -884,9 +884,9 @@ function Invoke-SSHStreamShellCommand
     }
     Process {
         # Discard any banner or previous command output
-        do { 
+        do {
             $ShellStream.read() | Out-Null
-    
+
         } while ($ShellStream.DataAvailable)
 
         $ShellStream.writeline($Command)
@@ -898,9 +898,9 @@ function Invoke-SSHStreamShellCommand
         $out = ''
 
         # read all output until there is no more
-        do { 
+        do {
             $out += $ShellStream.read()
-    
+
         } while ($ShellStream.DataAvailable)
 
         $outputLines = $out.Split("`n")
