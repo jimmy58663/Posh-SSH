@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Management.Automation;
 using System.Management.Automation.Host;
 using System.Text;
+using System.Linq;
 
 namespace SSH
 {
@@ -307,7 +308,48 @@ namespace SSH
                 //Remove algorithms that are not FIPS compliant if flag is set
                 if (_useFipsMode)
                 {
-                    connectInfo.UseFipsMode();
+                    var encryptionAlgorithms = new[] { "aes256-ctr", "aes256-cbc", "aes192-cbc", "aes128-cbc", "3des-cbc" };
+                    var hmacAlgorithms = new[] { "hmac-sha2-256", "hmac-sha2-512", "hmac-sha1" };
+                    var hostKeyAlgorithms = new[] { "ssh-dss", "ssh-rsa" };
+                    var kexAlgorithms = new[]
+                    {
+                        "diffie-hellman-group-exchange-sha256",
+                        "diffie-hellman-group-exchange-sha1",
+                        "diffie-hellman-group14-sha1",
+                        "diffie-hellman-group1-sha1"
+                    };
+
+                    foreach (var key in connectInfo.Encryptions.Keys.ToArray())
+                    {
+                        if (!encryptionAlgorithms.Contains(key))
+                        {
+                            connectInfo.Encryptions.Remove(key);
+                        }
+                    }
+
+                    foreach (var key in connectInfo.HmacAlgorithms.Keys.ToArray())
+                    {
+                        if (!hmacAlgorithms.Contains(key))
+                        {
+                            connectInfo.HmacAlgorithms.Remove(key);
+                        }
+                    }
+
+                    foreach (var key in connectInfo.HostKeyAlgorithms.Keys.ToArray())
+                    {
+                        if (!hostKeyAlgorithms.Contains(key))
+                        {
+                            connectInfo.HostKeyAlgorithms.Remove(key);
+                        }
+                    }
+
+                    foreach (var key in connectInfo.KeyExchangeAlgorithms.Keys.ToArray())
+                    {
+                        if (!kexAlgorithms.Contains(key))
+                        {
+                            connectInfo.KeyExchangeAlgorithms.Remove(key);
+                        }
+                    }
                 }
 
                 //Ceate instance of SSH Client with connection info
